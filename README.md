@@ -1,4 +1,4 @@
-# <p style='text-align: center; font-size: 28px'>Money Buckets</p>
+# <p align="center">Money Buckets</p>
 An envelope style savings PWA.  Visualize how much of your funds are allocated towards monthly expenses, budgets, or savings goals.
 
 #### Author: Dustin Herboldshimer
@@ -19,7 +19,7 @@ Any number of buckets can be created, re-ordered, emptied out or poured into oth
 - UI - Material UI
 
 #### Design Documents
-<div style='display: flex; margin-bottom: 10px; justify-content: space-around;'>
+<div align='center'>
   <img src="/dev/mbWire2.png" height="250" style="border: 1px solid grey; margin: 0 auto">
   <img src="/dev/mbWire1.png" height="250" style="border: 1px solid grey; margin: 0 auto">
   <img src="/dev/mbTree.png" height="250" style="border: 1px solid grey; margin: 0 auto">
