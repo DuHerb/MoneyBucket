@@ -19,7 +19,11 @@ Any number of buckets can be created, re-ordered, emptied out or poured into oth
 - UI - Material UI
 
 #### Design Documents
+<img src="/dev/mbWire2.png" height="250">
+<img src="/dev/mbWire1.png" height="250">
+<img src="/dev/mbTree.png" height="250">
 
+Using a mobile first design approach, I've sketched out a wire frame and component tree to outline to help me visualize the major components I will need and how they might interact with state.  The wireframe also provides a user story for me to follow --- drawing each component, view, button, and menu, helps develop a roadmap of the users experience.  My goal is to confront and consider as many design issues before as possible before any code is written.
 
 ## Create-React-App
 
