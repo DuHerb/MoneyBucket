@@ -1,4 +1,4 @@
-# <p align="center">Money Buckets</p>
+# <p align="center">Money Bucket</p>
 An envelope style savings PWA.  Visualize how much of your funds are allocated towards monthly expenses, budgets, or savings goals.
 
 #### Author: Dustin Herboldshimer
