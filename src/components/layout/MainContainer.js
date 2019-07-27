@@ -1,7 +1,7 @@
 import React from 'react'
 import Bucket from '../buckets/Bucket';
 import { makeStyles } from '@material-ui/styles';
-import MoneyBucket from './MoneyBucket'
+// import MoneyBucket from '../buckets/MoneyBucket'
 
 
 const useStyles = makeStyles({
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 const MainContainer = ({buckets}) => {
   const classes = useStyles();
-  console.log('main', buckets);
+  // console.log('main', buckets);
 
   return (
     <>
@@ -24,7 +24,7 @@ const MainContainer = ({buckets}) => {
         )
       })}
     </div>
-    <MoneyBucket />
+    
     </>
   )
 }

@@ -9,7 +9,8 @@ const useStyles = makeStyles({
     border: '1px solid black',
     margin: '5px auto',
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: 'white'
   },
   bucketInfo: {
     padding: 10
@@ -22,10 +23,10 @@ const useStyles = makeStyles({
 
 const Bucket = ({item, index}) => {
   const classes = useStyles();
-  console.log('from bucket', item, index);
+  // console.log('from bucket', item, index);
   
   return (
-    <Draggable draggableId={item.id} index={index}>
+    <Draggable draggableId={item.id} index={index} isDragDisabled={item.isDisabled}>
       {provided =>(
         <div className={classes.bucket}
           ref={provided.innerRef}
@@ -33,7 +34,7 @@ const Bucket = ({item, index}) => {
           {...provided.dragHandleProps}
         >
           <div className={classes.bucketInfo}>
-            <p>Bucket Name</p>
+            <p>{item.name}</p>
             <p>Lock Status</p>
           </div>
           <p className={classes.bucketValue}>Bucket $Value</p>

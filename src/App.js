@@ -3,10 +3,11 @@ import Navbar from './components/layout/Navbar';
 import MainContainer from './components/layout/MainContainer';
 import { dndInit } from './store/dndInit';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import MoneyBucket from './components/buckets/MoneyBucket'
 
 const reorder = (list, startIndex, endIndex) => {
-  console.log('from reorder function', list);
-  
+  // console.log('from reorder function', list);
+
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed)
@@ -19,7 +20,7 @@ function App() {
   const [dnd, setDnd] = useState(dndInit)
 
   function onDragEnd(result) {
-    console.log(result);
+    // console.log(result);
     if (!result.destination) {
       return;
     }
@@ -35,7 +36,7 @@ function App() {
 
     setDnd(newOrder)
   }
-  console.log("app", dnd);
+  // console.log("app", dnd);
   return (
     <div className="App">
       <Navbar/>
@@ -45,6 +46,7 @@ function App() {
             <div ref={provided.innerRef} {...provided.droppableProps} >
               <MainContainer buckets={dnd}/>
               {provided.placeholder}
+              <MoneyBucket />
             </div>
           )}
         </Droppable>

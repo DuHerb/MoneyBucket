@@ -1,5 +1,5 @@
 export const dndInit = [
-  {id: '1', content: 'bucket 1'},
-  {id: '2', content: 'bucket 2'},
-  {id: '3', content: 'bucket 3'},
+  {id: '1', name: 'bucket 1', isDisabled: false},
+  {id: '2', name: 'bucket 2', isDisabled: false},
+  {id: '3', name: 'bucket 3', isDisabled: false},
 ]
