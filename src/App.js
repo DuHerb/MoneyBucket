@@ -1,57 +1,24 @@
 import React, {useState} from 'react';
 import Navbar from './components/layout/Navbar';
-import MainContainer from './components/layout/MainContainer';
-import { dndInit } from './store/dndInit';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import MoneyBucket from './components/buckets/MoneyBucket'
 
-const reorder = (list, startIndex, endIndex) => {
-  // console.log('from reorder function', list);
-
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed)
-
-  return result;
-}
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import LandingPage from './components/layout/LandingPage';
+import User from './components/layout/User'
 
 function App() {
 
-  const [dnd, setDnd] = useState(dndInit)
-
-  function onDragEnd(result) {
-    // console.log(result);
-    if (!result.destination) {
-      return;
-    }
-    if(result.destination.index === result.source.index) {
-      return;
-    }
-
-    const newOrder = reorder(
-      dnd,
-      result.source.index,
-      result.destination.index
-    );
-
-    setDnd(newOrder)
-  }
+  
   // console.log("app", dnd);
   return (
-    <div className="App">
-      <Navbar/>
-      <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId='list'>
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} >
-              <MainContainer buckets={dnd}/>
-              {provided.placeholder}
-              <MoneyBucket />
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar/>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/user" component={User} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -28,7 +28,7 @@ function getDropStyle(style, snapshot) {
   return {
     ...style,
     // cannot be 0, but make it super tiny
-    transitionDuration: `0.1s`,
+    transitionDuration: `0.2s`,
   };
 }
 
