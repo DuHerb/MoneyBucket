@@ -8,7 +8,13 @@ const initState = {
 }
 
 const bucketReducer = (state = initState, action) => {
-  return state;
+  switch(action.type) {
+    case 'CREATE_BUCKET':
+      console.log('created bucket', action.bucket);
+      return state;
+    default:
+      return state;
+  }
 }
 
 export default bucketReducer;

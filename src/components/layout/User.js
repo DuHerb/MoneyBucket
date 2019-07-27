@@ -1,14 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
 import MainContainer from './../layout/MainContainer';
-import { dndInit } from './../../store/dndInit';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import MoneyBucket from './../buckets/MoneyBucket';
 import { reorder } from './../../functions/dndFuncs';
+import { connect } from 'react-redux'
 
-const User = () => {
-  const [dnd, setDnd] = useState(dndInit)
-
+const User = (state) => {
+  // const [dnd, setDnd] = useState(dndInit)
+  console.log(state)
   function onDragEnd(result) {
     if (!result.destination) {
       return;
@@ -18,11 +17,12 @@ const User = () => {
     }
 
     const newOrder = reorder(
-      dnd,
+      state.buckets,
       result.source.index,
       result.destination.index
     );
-    setDnd(newOrder)
+    // setDnd(newOrder)
+    console.log("ondragend", newOrder)
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -32,7 +32,7 @@ const User = () => {
             <Droppable droppableId='list'>
               {provided => (
                 <div ref={provided.innerRef} {...provided.droppableProps} >
-                  <MainContainer buckets={dnd}/>
+                  <MainContainer buckets={state.buckets}/>
                   {provided.placeholder}
                   <MoneyBucket />
                 </div>
@@ -42,4 +42,10 @@ const User = () => {
   )
 }
 
-export default User
+const mapStateToProps = (state) => {
+  return {
+    buckets: state.buckets.buckets
+  }
+}
+
+export default connect(mapStateToProps)(User)
