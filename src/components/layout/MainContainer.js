@@ -3,6 +3,7 @@ import Bucket from '../buckets/Bucket';
 import { makeStyles } from '@material-ui/styles';
 import MoneyBucket from './MoneyBucket'
 
+
 const useStyles = makeStyles({
   bucketList: {
     display: 'flex',
@@ -10,15 +11,21 @@ const useStyles = makeStyles({
   }
 })
 
-const MainContainer = () => {
+const MainContainer = ({buckets}) => {
   const classes = useStyles();
+  console.log('main', buckets);
+
   return (
+    <>
     <div className={classes.bucketList}>
-      <Bucket />
-      <Bucket />
-      <Bucket />
-      <MoneyBucket />
+      {buckets && buckets.map((item, index )=> {
+        return (
+          <Bucket item={item} key={item.id} index={index} />
+        )
+      })}
     </div>
+    <MoneyBucket />
+    </>
   )
 }
 
