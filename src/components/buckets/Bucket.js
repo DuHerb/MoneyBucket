@@ -21,17 +21,29 @@ const useStyles = makeStyles({
 
 })
 
+function getDropStyle(style, snapshot) {
+  if (!snapshot.isDropAnimating) {
+    return style;
+  }
+  return {
+    ...style,
+    // cannot be 0, but make it super tiny
+    transitionDuration: `0.1s`,
+  };
+}
+
 const Bucket = ({item, index}) => {
   const classes = useStyles();
   // console.log('from bucket', item, index);
   
   return (
     <Draggable draggableId={item.id} index={index} isDragDisabled={item.isDisabled}>
-      {provided =>(
+      {(provided, snapshot) =>(
         <div className={classes.bucket}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          style={getDropStyle(provided.draggableProps.style, snapshot)}
         >
           <div className={classes.bucketInfo}>
             <p>{item.name}</p>
