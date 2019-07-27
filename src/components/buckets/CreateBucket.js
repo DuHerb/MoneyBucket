@@ -13,15 +13,17 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     padding: 10
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column'
   }
 })
 
 const CreateBucket = ({createBucket}) => {
 const classes = useStyles()
 const [state, setState] = useState({
-  id: '',
   name: '',
-  isDisabled: false
 })
 
 const handleChange = name => (e) => {
@@ -38,17 +40,11 @@ const handleChange = name => (e) => {
       <h2>Create New Bucket</h2>
       <p>this is a place holder form for testing</p>
       <div className={classes.formContainer}>
-        <form onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
         <TextField
           id="name"
           label="BucketName"
           onChange={handleChange('name')}
-          margin="normal"
-        />
-        <TextField
-          id="uid"
-          label="UID"
-          onChange={handleChange('id')}
           margin="normal"
         />
         <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
