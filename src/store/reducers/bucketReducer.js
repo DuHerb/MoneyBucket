@@ -12,6 +12,9 @@ const bucketReducer = (state = initState, action) => {
     case 'CREATE_BUCKET':
       console.log('created bucket', action.bucket);
       return state;
+    case 'CREATE_BUCKET_ERROR':
+      console.log('create bucket error', action.err);
+      return state;
     default:
       return state;
   }
