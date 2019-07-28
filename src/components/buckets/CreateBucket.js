@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-const CreateBucket = ({createBucket}) => {
+const CreateBucket = (props) => {
 const classes = useStyles()
 const [state, setState] = useState({
   name: '',
@@ -32,7 +32,10 @@ const handleChange = name => (e) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createBucket(state);
+    // createBucket(state);
+    console.log(props);
+    
+    props.history.push('/');
   }
 
   return (

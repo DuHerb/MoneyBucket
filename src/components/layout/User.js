@@ -3,11 +3,13 @@ import MainContainer from './../layout/MainContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import MoneyBucket from './../buckets/MoneyBucket';
 import { reorder } from './../../functions/dndFuncs';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import {firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
 
 const User = (state) => {
   // const [dnd, setDnd] = useState(dndInit)
-  console.log(state)
+  console.log("user",state)
   function onDragEnd(result) {
     if (!result.destination) {
       return;
@@ -22,7 +24,7 @@ const User = (state) => {
       result.destination.index
     );
     // setDnd(newOrder)
-    console.log("ondragend", newOrder)
+    // console.log("ondragend", newOrder)
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -39,13 +41,23 @@ const User = (state) => {
               )}
             </Droppable>
           </DragDropContext>
+    // <p>test -- looking for store from firebase</p>
   )
 }
 
 const mapStateToProps = (state) => {
+  // console.log('state w/ firestore ', state);
   return {
-    buckets: state.buckets.buckets
+    // dummy data
+    // buckets: state.bucket.buckets
+    // firestore data
+    buckets: state.firestore.ordered.buckets
   }
 }
 
-export default connect(mapStateToProps)(User)
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'buckets'}
+  ])
+)(User)
