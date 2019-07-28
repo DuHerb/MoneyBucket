@@ -32,10 +32,10 @@ const handleChange = name => (e) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // createBucket(state);
-    console.log(props);
+    props.createBucket(state);
+    // console.log(props.createBucket);
     
-    props.history.push('/');
+    // props.history.push('/');
   }
 
   return (
