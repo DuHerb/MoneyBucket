@@ -13,8 +13,3 @@ export const createBucket = (bucket) => {
     })
   }
 };
-
-// export const createBucket = (bucket) => {
-//   console.log(bucket);
-
-// };
