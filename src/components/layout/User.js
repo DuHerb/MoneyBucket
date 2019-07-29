@@ -12,28 +12,25 @@ import { reduxFirestore,getFirestore } from 'redux-firestore';
 const User = (state) => {
   // const counter = state.buckets.length()
   console.log("user state.buckets ", state)
-  const[localState, setlocalState] = useState()
 
   useEffect(() => {
-    console.log('useEffect', state.buckets)
-    const localState = state.buckets;
-    console.log('localstate:', localState)
+    const testArray = []
+    const db = getFirestore();
 
-    setlocalState(state.buckets)
-    // console.log(' preset localState', localState);
-    // const firestore = getFirestore();
-    // let localArray = []
-    // firestore.collection('buckets').get().then(response => {
-    //   console.log(response);
-    //   response.forEach(doc => {
-    //     localArray.push(doc.data())
-    //   })
-    //   console.log('localAray', localArray);
-    //   console.log('localState', localState);
-      
-    // });
-    // setlocalState(localArray);
+    const test = db.collection('buckets').where('name', '==', 'm').orderBy('order').get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        testArray.push(doc.data())
+        console.log('updated testArray', testArray);
+        
+      })
+    }).catch((err) => {
+      console.log('error getting test docs', err);
+    })
+
+    console.log('use effect', test);
+    
   })
+
 
 
   function onDragEnd(result) {
@@ -54,7 +51,7 @@ const User = (state) => {
 
   }
   return (
-  
+
     <DragDropContext onDragEnd={onDragEnd}>
       <>
         <div>
@@ -82,19 +79,21 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('state w/ firestore ', state);
+  console.log('inside map ', state);
+  // const test = state.firestore.ordered.buckets.filter(item => item.order === 0)
   return {
     // dummy data
     // buckets: state.bucket.buckets
     // buckets: state.bucket.initState.buckets
     // firestore data
     buckets: state.firestore.ordered.buckets
+    // buckets: test
   }
 }
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: 'buckets', where: ['name', '==', 'm']}
+    { collection: 'buckets', where: ['name', '==', 'm'], orderBy: ['order']}
   ])
 )(User)

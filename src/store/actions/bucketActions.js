@@ -28,7 +28,7 @@ export const reorderBuckets = (buckets) => {
         dispatch({ type: 'REORDER_BUCKETS_ERROR', err})
       })
     })
-    firestore.get({collection: 'buckets', orderBy: ['order']})
+    firestore.get({collection: 'buckets', where: ['name', '==', 'm'], orderBy: ['order']})
   }
 }
 //
