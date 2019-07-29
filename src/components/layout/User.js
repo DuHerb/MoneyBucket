@@ -7,10 +7,33 @@ import { connect } from 'react-redux';
 import {firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'
 import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
+import { reduxFirestore,getFirestore } from 'redux-firestore';
 
 const User = (state) => {
   // const counter = state.buckets.length()
   console.log("user state.buckets ", state)
+  const[localState, setlocalState] = useState()
+
+  useEffect(() => {
+    console.log('useEffect', state.buckets)
+    const localState = state.buckets;
+    console.log('localstate:', localState)
+
+    setlocalState(state.buckets)
+    // console.log(' preset localState', localState);
+    // const firestore = getFirestore();
+    // let localArray = []
+    // firestore.collection('buckets').get().then(response => {
+    //   console.log(response);
+    //   response.forEach(doc => {
+    //     localArray.push(doc.data())
+    //   })
+    //   console.log('localAray', localArray);
+    //   console.log('localState', localState);
+      
+    // });
+    // setlocalState(localArray);
+  })
 
 
   function onDragEnd(result) {
@@ -31,20 +54,23 @@ const User = (state) => {
 
   }
   return (
+  
     <DragDropContext onDragEnd={onDragEnd}>
-            <div>
-              a logged in user should go here.  for now, it will be the main bucket container
+      <>
+        <div>
+          a logged in user should go here.  for now, it will be the main bucket container
+        </div>
+        <Droppable droppableId='list'>
+          {provided => (
+            <div ref={provided.innerRef} {...provided.droppableProps} >
+              <MainContainer buckets={state.buckets}/>
+              {provided.placeholder}
+              <MoneyBucket />
             </div>
-            <Droppable droppableId='list'>
-              {provided => (
-                <div ref={provided.innerRef} {...provided.droppableProps} >
-                  <MainContainer buckets={state.buckets}/>
-                  {provided.placeholder}
-                  <MoneyBucket />
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          )}
+        </Droppable>
+        </>
+      </DragDropContext>
     // <p>test -- looking for store from firebase</p>
   )
 }
@@ -69,6 +95,6 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: 'buckets', orderBy: ['order']}
+    { collection: 'buckets', where: ['name', '==', 'm']}
   ])
 )(User)

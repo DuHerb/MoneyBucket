@@ -31,6 +31,7 @@ export const reorderBuckets = (buckets) => {
     firestore.get({collection: 'buckets', orderBy: ['order']})
   }
 }
+//
 
 // export const reorderBuckets = (buckets) => {
 //   return (dispatch, getState, {getFirebase, getFirestore}) => {

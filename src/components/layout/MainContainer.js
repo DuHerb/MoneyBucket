@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 const MainContainer = ({buckets}) => {
   const classes = useStyles();
-  // console.log('main', buckets);
+  console.log('main', buckets);
   // const ordered = (buckets =>{
   //   const newBuckets = buckets;
   //   newBuckets.sort((a,b) => (a.order > b.order) ? 1 : -1)
