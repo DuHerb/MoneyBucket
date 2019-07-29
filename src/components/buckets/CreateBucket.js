@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-native-reassign */
 import React from 'react'
 import { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
@@ -34,7 +32,6 @@ const handleChange = name => (e) => {
     e.preventDefault();
     props.createBucket(state);
     // console.log(props.createBucket);
-    
     // props.history.push('/');
   }
 

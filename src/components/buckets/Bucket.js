@@ -35,7 +35,6 @@ function getDropStyle(style, snapshot) {
 const Bucket = ({item, index}) => {
   const classes = useStyles();
   // console.log('from bucket', item, index);
-  
   return (
     <Draggable draggableId={item.id} index={index} isDragDisabled={item.isDisabled}>
       {(provided, snapshot) =>(
@@ -47,6 +46,7 @@ const Bucket = ({item, index}) => {
         >
           <div className={classes.bucketInfo}>
             <p>{item.name}</p>
+            <p>{item.order}</p>
             <p>Lock Status</p>
           </div>
           <p className={classes.bucketValue}>Bucket $Value</p>

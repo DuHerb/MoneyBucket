@@ -1,13 +1,13 @@
 
-const initState = {
-  buckets: [
-    {id: '1', name: 'bucket 1', isDisabled: false},
-    {id: '2', name: 'bucket 2', isDisabled: false},
-    {id: '3', name: 'bucket 3', isDisabled: false},
-  ]
-}
+// const initState = {
+//   buckets: [
+//     {id: '1', name: 'bucket 1', isDisabled: false},
+//     {id: '2', name: 'bucket 2', isDisabled: false},
+//     {id: '3', name: 'bucket 3', isDisabled: false},
+//   ]
+// }
 
-const bucketReducer = (state = initState, action) => {
+const bucketReducer = (state = {}, action) => {
   switch(action.type) {
     case 'CREATE_BUCKET':
       console.log('created bucket', action.bucket);
@@ -15,6 +15,10 @@ const bucketReducer = (state = initState, action) => {
     case 'CREATE_BUCKET_ERROR':
       console.log('create bucket error', action.err);
       return state;
+    case 'REORDER_BUCKETS':
+      console.log('reorder buckets', action);
+      const newState = Object.assign({}, ...action.buckets);
+      return newState;
     default:
       return state;
   }

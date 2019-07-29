@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import MainContainer from './../layout/MainContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import MoneyBucket from './../buckets/MoneyBucket';
-import { reorder } from './../../functions/dndFuncs';
+// import { reorder } from './../../functions/dndFuncs';
 import { connect } from 'react-redux';
 import {firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'
+import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
 
 const User = (state) => {
-  // const [dnd, setDnd] = useState(dndInit)
-  console.log("user",state)
+
+
+  console.log("user state.buckets ", state)
+
   function onDragEnd(result) {
     if (!result.destination) {
       return;
@@ -18,13 +21,14 @@ const User = (state) => {
       return;
     }
 
-    const newOrder = reorder(
+    const newOrder = reorderArray(
       state.buckets,
       result.source.index,
       result.destination.index
     );
-    // setDnd(newOrder)
-    // console.log("ondragend", newOrder)
+    console.log("ondragend", newOrder)
+    state.reorderBuckets(newOrder)
+
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -45,19 +49,27 @@ const User = (state) => {
   )
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    reorderBuckets: (newOrder) => dispatch(reorderBuckets(newOrder))
+  }
+}
+
 const mapStateToProps = (state) => {
   // console.log('state w/ firestore ', state);
   return {
     // dummy data
     // buckets: state.bucket.buckets
+    // buckets: state.bucket.initState.buckets
     // firestore data
+    reduxStore: state,
     buckets: state.firestore.ordered.buckets
   }
 }
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: 'buckets'}
+    { collection: 'buckets', orderBy: ['order']}
   ])
 )(User)

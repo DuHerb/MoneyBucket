@@ -12,9 +12,7 @@ const useStyles = makeStyles({
 const BucketFillBar = () => {
   const classes = useStyles();
   return (
-    <div className={classes.fillBar}>
-
-    </div>
+    <div className={classes.fillBar}></div>
   )
 }
 
