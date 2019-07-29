@@ -61,3 +61,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(null, mapDispatchToProps)(CreateBucket)
+
+//TODO: Add ability to add dynamic order value to new buckets
