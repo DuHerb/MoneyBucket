@@ -2,10 +2,12 @@
 export const createBucket = (bucket) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     const firestore = getFirestore();
+
     firestore.collection('buckets').add({
       ...bucket,
       isDisabled: false,
       createdAt: new Date(),
+      order: 1000
     }).then(() => {
       dispatch({ type: 'CREATE_BUCKET', bucket})
     }).catch((err) => {

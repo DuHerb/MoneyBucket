@@ -9,9 +9,9 @@ import { compose } from 'redux'
 import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
 
 const User = (state) => {
-
-
+  // const counter = state.buckets.length()
   console.log("user state.buckets ", state)
+
 
   function onDragEnd(result) {
     if (!result.destination) {
@@ -62,7 +62,6 @@ const mapStateToProps = (state) => {
     // buckets: state.bucket.buckets
     // buckets: state.bucket.initState.buckets
     // firestore data
-    reduxStore: state,
     buckets: state.firestore.ordered.buckets
   }
 }
