@@ -1,3 +1,5 @@
+
+
 /* eslint-disable no-unused-vars */
 //for MVP development, total state will consist of one user.
 const state = {
@@ -40,6 +42,7 @@ const bucketTransaction = {
   isLocked: Boolean, //if(isLocked), bucket will be skipped and no changes made to current Value
   isPool: Boolean, //if(isPool), bucket is last bucket in stack.  This bucket will not be removable or draggable, and will collect all $ at end 
   bucketIndex: Number, //this bucket's position in the stack
+  bucketUid: String, //this bucket's unique id
 }
 
 const depositTransaction = {
