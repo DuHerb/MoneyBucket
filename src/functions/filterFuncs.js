@@ -63,8 +63,7 @@ export function mainBucketFilter(buckets, depositValue) {
       return [batchArray, inputValue];
     }
 
-
-export function filterBucket(bucket, inputValue) {
+function filterBucket(bucket, inputValue) {
   if (bucket.isLocked || bucket.currentValue >= bucket.targetValue || inputValue === 0) {
     return null;
   } else {
@@ -88,6 +87,7 @@ function checkOverFlow(currentValue, targetValue, valueIncrease) {
     return false;
 }
 
+//TODO: add code to handle percent case isMinRequired = true
 const handleCase = (bucket, inputValue, filterType) => {
   let holdValue = String;
   if(filterType === 'percent') {
