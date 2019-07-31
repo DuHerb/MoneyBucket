@@ -20,26 +20,34 @@ const useStyles = makeStyles({
   },
   form: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    
   },
   root: {
     display: 'flex',
   },
   formControl: {
     margin: 10,
+    textAlign: 'center'
   },
   group: {
     margin: 10,
     flexDirection: 'row',
     justifyContent: 'center'
   },
+  radioButton : {
+    color: 'green !important'
+  },
+  textField: {
+    width: '100%',
+  }
 })
 
 const CreateBucket = (props) => {
 const classes = useStyles()
 const [state, setState] = useState({
   name: '',
-  targetValue:'',
+  // targetValue:'',
   filterType: 'static'
 })
 
@@ -66,6 +74,7 @@ const handleSubmit = (e) => {
           placeholder="What are you saving for?"
           onChange={handleChange('name')}
           margin="normal"
+          required
         />
         <TextField
         id="targetValue"
@@ -74,9 +83,11 @@ const handleSubmit = (e) => {
         onChange={handleChange('targetValue')}
         className={classes.textField}
         margin="normal"
+        type='number'
+        required
       />
         <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Filter Type</FormLabel>
+        <FormLabel component="legend" style={{color: 'gray'}}>Filter Type</FormLabel>
         <RadioGroup
           aria-label="filterType"
           name="filterType"
@@ -84,10 +95,44 @@ const handleSubmit = (e) => {
           value={state.filterType}
           onChange={handleChange('filterType')}
         >
-          <FormControlLabel value="static" control={<Radio />} label="Flat Value" labelPlacement="bottom"/>
-          <FormControlLabel value="percent" control={<Radio />} label="Percentage" labelPlacement="bottom"/>
+          <FormControlLabel value="static" control={<Radio className={classes.radioButton} />} label="Flat Value" labelPlacement="bottom"/>
+          <FormControlLabel value="percent" control={<Radio className={classes.radioButton} />} label="Percentage" labelPlacement="bottom"/>
         </RadioGroup>
       </FormControl>
+      {state.filterType === 'static' ?
+           <div id='staticOptions'>
+              <TextField
+                id="targetValue"
+                label="Flat amount to be kept each deposit."
+                placeholder="example: keep $10 of $500 = $10"
+                onChange={handleChange('staticHoldValue')}
+                className={classes.textField}
+                margin="normal"
+                type='number'
+                required
+                fullwidth='true'
+              />
+          </div> :
+          <div id='percentOptions'>
+              <TextField
+                id="targetValue"
+                label="Percentage of deposit to be kept each deposit"
+                placeholder="example: keep 10% of $500 = $50"
+                onChange={handleChange('targetValue')}
+                className={classes.textField}
+                margin="normal"
+                type='number'
+                required
+                fullwidth='true'
+              />
+          </div>
+        }
+
+
+
+
+
+
         <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
         </form>
       </div>
