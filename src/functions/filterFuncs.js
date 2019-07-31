@@ -4,7 +4,7 @@ export const testBuckets = [
     uid: '1',
     name: 'bucketOne',
     targetValue: 100,
-    currentValue: 99,
+    currentValue: 50,
     filterType: 'static',
     isMinRequired: false,
     holdMinimum: null,
@@ -33,13 +33,13 @@ export const testBuckets = [
     name: 'bucketThree',
     targetValue: 350,
     currentValue: 0,
-    filterType: 'static',
+    filterType: 'percent',
     isMinRequired: false,
     holdMinimum: null,
     isLocked: false,
     isPool: false,
     staticHoldValue: 3,
-    percentHoldValue: 0,
+    percentHoldValue: 10,
     valueChange: 0,
   }
 ]
@@ -51,8 +51,9 @@ export function mainBucketFilter(buckets, depositValue) {
     const result = filterBucket(bucket, inputValue);
     if(result) {
       batchArray.push(result)
+      //result[1] is the remainder of inputValue after passing through a bucketFilter
       inputValue = result[1]
-      console.log(inputValue);
+      console.log('next input', inputValue);
     }
   })
       //need to return an object containing information needed to create a batch write to firestore.
@@ -69,63 +70,12 @@ export function filterBucket(bucket, inputValue) {
   } else {
     switch(bucket.filterType) {
       case 'static':
-        let holdValue = bucket.staticHoldValue;
-        if(holdValue < inputValue) {
-          if(checkOverFlow(bucket.currentValue, bucket.targetValue, holdValue)) {
-            //if holdValue pushes currentValue over the targetValue, set currentValue to targetValue
-            // and return remainder of inputValue as array[1]
-            return [
-                    {
-                      uid: bucket.uid,
-                      newCurrentValue: bucket.targetValue,
-                      valueChange: (bucket.targetValue - bucket.currentValue)
-                    },
-                    inputValue - (bucket.targetValue - bucket.currentValue)
-                  ]
-          } else {
-            //inputValue is greater than staticHoldValue. Add hold value to currentValue,
-            // subtract holdValue from inputValue and return remainder as array[1]
-            return [
-                    {
-                      uid: bucket.uid,
-                      newCurrentValue: holdValue + bucket.currentValue, valueChange: holdValue
-                    },
-                    (inputValue - holdValue)
-                  ]
-          }
-        } else {
-          if(checkOverFlow(bucket.currentValue, bucket.targetValue, inputValue)) {
-            //inputValue is less than hold value, but still pushes currentValue over targetValue
-            //set currentValue to targetValue and return remainder as array[1]
-            return [
-              {
-                uid: bucket.uid,
-                newCurrentValue: bucket.targetValue,
-                valueChange: (bucket.targetValue - bucket.currentValue)
-              },
-              inputValue - (bucket.targetValue - bucket.currentValue)
-            ]
-          } else {
-            //inputValue is less than staticHoldValue and doesn't reach targetValue
-            //add inputValue to currentValue and return 0 as array[1].
-            return [
-                    {
-                      uid: bucket.uid,
-                      newCurrentValue: inputValue + bucket.currentValue, valueChange: inputValue
-                    },
-                    0
-                  ]
-          }
-        }
+        return handleCase(bucket, inputValue, bucket.filterType)
       case 'percent':
-        console.log('percent');
-        break;
+        return handleCase(bucket, inputValue, bucket.filterType)
       default:
         console.log('filterType error');
     }
-
-
-    // return `${bucket.name} passed`
   }
   //need newCurrentValue, outPutValue, bucketUid
   // return { newCurrentValue: 0, outPutValue: 0};
@@ -136,4 +86,65 @@ function checkOverFlow(currentValue, targetValue, valueIncrease) {
     return true;
   else
     return false;
+}
+
+const handleCase = (bucket, inputValue, filterType) => {
+  let holdValue = String;
+  if(filterType === 'percent') {
+    holdValue = +((bucket.percentHoldValue / 100) * inputValue).toFixed(2);
+  } else {
+    holdValue = bucket.staticHoldValue;
+  }
+
+  console.log(filterType, 'case', 'inputValue', inputValue, 'holdValue: ', holdValue, 'bucket current value', bucket.currentValue, 'bucket target', bucket.targetValue);
+
+  if(holdValue < inputValue) {
+    if(checkOverFlow(bucket.currentValue, bucket.targetValue, holdValue)) {
+      //if holdValue pushes currentValue over the targetValue, set currentValue to targetValue
+      // and return remainder of inputValue as array[1]
+      return [
+              {
+                uid: bucket.uid,
+                newCurrentValue: bucket.targetValue,
+                valueChange: (bucket.targetValue - bucket.currentValue)
+              },
+              inputValue - (bucket.targetValue - bucket.currentValue)
+            ]
+    } else {
+      //inputValue is greater than staticHoldValue. Add hold value to currentValue,
+      // subtract holdValue from inputValue and return remainder as array[1]
+      return [
+              {
+                uid: bucket.uid,
+                newCurrentValue: holdValue + bucket.currentValue,
+                valueChange: holdValue
+              },
+              (inputValue - holdValue)
+            ]
+    }
+  } else {
+    if(checkOverFlow(bucket.currentValue, bucket.targetValue, inputValue)) {
+      //inputValue is less than hold value, but still pushes currentValue over targetValue
+      //set currentValue to targetValue and return remainder as array[1]
+      return [
+        {
+          uid: bucket.uid,
+          newCurrentValue: bucket.targetValue,
+          valueChange: (bucket.targetValue - bucket.currentValue)
+        },
+        inputValue - (bucket.targetValue - bucket.currentValue)
+      ]
+    } else {
+      //inputValue is less than staticHoldValue and doesn't reach targetValue
+      //add inputValue to currentValue and return 0 as array[1].
+      return [
+              {
+                uid: bucket.uid,
+                newCurrentValue: inputValue + bucket.currentValue,
+                valueChange: inputValue
+              },
+              0
+            ]
+    }
+  }
 }
