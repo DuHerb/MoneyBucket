@@ -12,8 +12,8 @@ function App() {
       <div className="App">
         <Navbar/>
         <Switch>
-          <Route path='/landing' component={LandingPage} />
-          <Route  exact path='/' component={User} />
+          <Route path='/' component={LandingPage} />
+          <Route  exact path='/user' component={User} />
           <Route path='/newBucket' component={CreateBucket} />
         </Switch>
       </div>
