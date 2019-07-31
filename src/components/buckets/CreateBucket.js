@@ -21,7 +21,6 @@ const useStyles = makeStyles({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    
   },
   root: {
     display: 'flex',
@@ -40,6 +39,10 @@ const useStyles = makeStyles({
   },
   textField: {
     width: '100%',
+  },
+  minReqControl: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 })
 
@@ -48,7 +51,8 @@ const classes = useStyles()
 const [state, setState] = useState({
   name: '',
   // targetValue:'',
-  filterType: 'static'
+  filterType: 'static',
+  isMinRequired: 'false',
 })
 
 const handleChange = name => (e) => {
@@ -77,17 +81,17 @@ const handleSubmit = (e) => {
           required
         />
         <TextField
-        id="targetValue"
-        label="Target Value"
-        placeholder="How much money should this bucket collect?"
-        onChange={handleChange('targetValue')}
-        className={classes.textField}
-        margin="normal"
-        type='number'
-        required
-      />
+          id="targetValue"
+          label="Target Value"
+          placeholder="How much money should this bucket collect?"
+          onChange={handleChange('targetValue')}
+          className={classes.textField}
+          margin="normal"
+          type='number'
+          required
+        />
         <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend" style={{color: 'gray'}}>Filter Type</FormLabel>
+        <FormLabel component="legend" style={{color: 'gray'}}>Filter Method</FormLabel>
         <RadioGroup
           aria-label="filterType"
           name="filterType"
@@ -95,16 +99,56 @@ const handleSubmit = (e) => {
           value={state.filterType}
           onChange={handleChange('filterType')}
         >
-          <FormControlLabel value="static" control={<Radio className={classes.radioButton} />} label="Flat Value" labelPlacement="bottom"/>
-          <FormControlLabel value="percent" control={<Radio className={classes.radioButton} />} label="Percentage" labelPlacement="bottom"/>
+          <FormControlLabel value='static' control={<Radio className={classes.radioButton} />} label="Flat Value" labelPlacement="bottom"/>
+          <FormControlLabel value='percent' control={<Radio className={classes.radioButton} />} label="Percentage" labelPlacement="bottom"/>
         </RadioGroup>
       </FormControl>
       {state.filterType === 'static' ?
-           <div id='staticOptions'>
+        <div id='staticOptions'>
+          <TextField
+            id="targetValue"
+            label="Flat amount to be kept each deposit."
+            placeholder="example: keep $10 of $500 = $10"
+            onChange={handleChange('staticHoldValue')}
+            className={classes.textField}
+            margin="normal"
+            type='number'
+            required
+            fullwidth='true'
+          />
+        </div> :
+        <div id='percentOptions'>
+          <TextField
+            id="targetValue"
+            label="Percentage of deposit to be kept each deposit"
+            placeholder="example: keep 10% of $500 = $50"
+            onChange={handleChange('targetValue')}
+            className={classes.textField}
+            margin="normal"
+            type='number'
+            required
+            fullwidth='true'
+          />
+          <div className={classes.minReqControl}>
+            <FormControl component="fieldset" className={classes.formControl}>
+              <FormLabel component="legend" style={{color: 'gray'}}>Is there a Minimum Hold Amount?</FormLabel>
+              <RadioGroup
+                aria-label="minAmountReq"
+                name="minAmountReq"
+                className={classes.group}
+                value={state.isMinRequired}
+                onChange={handleChange('isMinRequired')}
+              >
+              <FormControlLabel value="false" control={<Radio className={classes.radioButton} />} label="no" labelPlacement="bottom"/>
+              <FormControlLabel value="true" control={<Radio className={classes.radioButton} />} label="yes" labelPlacement="bottom"/>
+              </RadioGroup>
+            </FormControl>
+          </div>
+            {state.isMinRequired === 'true' ?
               <TextField
-                id="targetValue"
-                label="Flat amount to be kept each deposit."
-                placeholder="example: keep $10 of $500 = $10"
+                id="minHoldValue"
+                label="What is the Minimum amount to be held"
+                placeholder="example: keep 10% of $80 = $10"
                 onChange={handleChange('staticHoldValue')}
                 className={classes.textField}
                 margin="normal"
@@ -112,20 +156,9 @@ const handleSubmit = (e) => {
                 required
                 fullwidth='true'
               />
-          </div> :
-          <div id='percentOptions'>
-              <TextField
-                id="targetValue"
-                label="Percentage of deposit to be kept each deposit"
-                placeholder="example: keep 10% of $500 = $50"
-                onChange={handleChange('targetValue')}
-                className={classes.textField}
-                margin="normal"
-                type='number'
-                required
-                fullwidth='true'
-              />
-          </div>
+              : null
+            }
+        </div>
         }
 
 
