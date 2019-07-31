@@ -38,7 +38,7 @@ const bucketTransaction = {
   filterType: String, //'percent' or 'static'
   staticAmount: Number, //if (filterType === 'static') staticAmount = $ that bucket keeps
   isMinRequired: Boolean,
-  minAmount: Number, //if(isMinRequired), minAmount is $ that must keep before passing value to next bucket
+  holdMinimum: Number, //if(isMinRequired), minAmount is $ that must keep before passing value to next bucket
   previousValue: Number, //bucket value at start of transaction
   currentValue: Number, //bucket value after transaction
   isLocked: Boolean, //if(isLocked), bucket will be skipped and no changes made to current Value
