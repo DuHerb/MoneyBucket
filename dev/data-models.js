@@ -16,16 +16,18 @@ const user = {
 const bucket = {
   uid: String,
   name: String, //user provided name = the item being saved for
-  date: Date, //timestamp of bucket creation
-  target: Number, //the $ amount this bucket is valued at
+  createdAt: Date, //timestamp of bucket creation
+  targetValue: Number, //the $ amount this bucket is valued at
   filterType: String, //'percent' or 'static'
-  staticAmount: Number, //if (filterType === 'static') staticAmount = $ that bucket keeps
+  staticHoldValue: Number, //if (filterType === 'static') staticAmount = $ that bucket keeps
+  percentHoldValue: Number, //if filterType == 'percent', percentHoldValue is % of input that bucket holds
   isMinRequired: Boolean,
-  minAmount: Number, //if(isMinRequired), minAmount is $ that must keep before passing value to next bucket
+  minAmount: Number, //if(isMinRequired) minAmount is $ that must keep before passing value to next bucket
   currentValue: Number,
   isLocked: Boolean, //if(isLocked), bucket will be skipped and no changes made to current Value
   isPool: Boolean, //if(isPool), bucket is last bucket in stack.  This bucket will not be removable or draggable, and will collect all $ at end of reduction
   history: Array, //list of transactions. rudimentary transaction history in case I have time to implement a view to use it.
+  valueChange: Number, //change in value after most recent deposit
 }
 
 const bucketTransaction = {
