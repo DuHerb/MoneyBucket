@@ -4,27 +4,29 @@ export const testBuckets = [
     uid: '1',
     name: 'bucketOne',
     targetValue: 100,
-    currentValue: 0,
+    currentValue: 99,
     filterType: 'static',
     isMinRequired: false,
     holdMinimum: null,
     isLocked: false,
     isPool: false,
-    holdStatic: 1,
-    holdPercent: 0
+    staticHoldValue: 100,
+    percentHoldValue: 0,
+    valueChange: 0,
   },
   {
     uid: '2',
     name: 'bucketTwo',
     targetValue: 2500,
-    currentValue: 0,
+    currentValue: 2400,
     filterType: 'static',
     isMinRequired: false,
     holdMinimum: null,
     isLocked: false,
     isPool: false,
-    holdStatic: 2,
-    holdPercent: 0
+    staticHoldValue: 2500,
+    percentHoldValue: 0,
+    valueChange: 0,
   },
   {
     uid: '3',
@@ -36,8 +38,9 @@ export const testBuckets = [
     holdMinimum: null,
     isLocked: false,
     isPool: false,
-    holdStatic: 3,
-    holdPercent: 0
+    staticHoldValue: 3,
+    percentHoldValue: 0,
+    valueChange: 0,
   }
 ]
 
@@ -64,15 +67,55 @@ export function filterBucket(bucket, inputValue) {
   if (bucket.isLocked || bucket.currentValue >= bucket.targetValue || inputValue === 0) {
     return null;
   } else {
-    let holdValue = Number;
-    let tempValue = Number;
     switch(bucket.filterType) {
       case 'static':
-        holdValue = bucket.holdStatic;
+        let holdValue = bucket.staticHoldValue;
         if(holdValue < inputValue) {
-          return [{ uid: bucket.uid, newCurrentValue: holdValue + bucket.currentValue}, (inputValue - holdValue)]
+          if(checkOverFlow(bucket.currentValue, bucket.targetValue, holdValue)) {
+            //if holdValue pushes currentValue over the targetValue, set currentValue to targetValue
+            // and return remainder of inputValue as array[1]
+            return [
+                    {
+                      uid: bucket.uid,
+                      newCurrentValue: bucket.targetValue,
+                      valueChange: (bucket.targetValue - bucket.currentValue)
+                    },
+                    inputValue - (bucket.targetValue - bucket.currentValue)
+                  ]
+          } else {
+            //inputValue is greater than staticHoldValue. Add hold value to currentValue,
+            // subtract holdValue from inputValue and return remainder as array[1]
+            return [
+                    {
+                      uid: bucket.uid,
+                      newCurrentValue: holdValue + bucket.currentValue, valueChange: holdValue
+                    },
+                    (inputValue - holdValue)
+                  ]
+          }
         } else {
-          return [{ uid: bucket.uid, newCurrentValue: inputValue + bucket.currentValue}, 0]
+          if(checkOverFlow(bucket.currentValue, bucket.targetValue, inputValue)) {
+            //inputValue is less than hold value, but still pushes currentValue over targetValue
+            //set currentValue to targetValue and return remainder as array[1]
+            return [
+              {
+                uid: bucket.uid,
+                newCurrentValue: bucket.targetValue,
+                valueChange: (bucket.targetValue - bucket.currentValue)
+              },
+              inputValue - (bucket.targetValue - bucket.currentValue)
+            ]
+          } else {
+            //inputValue is less than staticHoldValue and doesn't reach targetValue
+            //add inputValue to currentValue and return 0 as array[1].
+            return [
+                    {
+                      uid: bucket.uid,
+                      newCurrentValue: inputValue + bucket.currentValue, valueChange: inputValue
+                    },
+                    0
+                  ]
+          }
         }
       case 'percent':
         console.log('percent');
@@ -82,8 +125,15 @@ export function filterBucket(bucket, inputValue) {
     }
 
 
-    return `${bucket.name} passed`
+    // return `${bucket.name} passed`
   }
   //need newCurrentValue, outPutValue, bucketUid
   // return { newCurrentValue: 0, outPutValue: 0};
+}
+
+function checkOverFlow(currentValue, targetValue, valueIncrease) {
+  if(currentValue + valueIncrease >= targetValue)
+    return true;
+  else
+    return false;
 }
