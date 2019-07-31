@@ -34,7 +34,7 @@ const bucketTransaction = {
   date: Date, //transaction time stamp
   uid: String, //transaction id
   name: String, //user provided name = the item being saved for
-  target: Number, //the $ amount this bucket is valued at
+  targetValue: Number, //the $ amount this bucket is valued at
   filterType: String, //'percent' or 'static'
   staticAmount: Number, //if (filterType === 'static') staticAmount = $ that bucket keeps
   isMinRequired: Boolean,
