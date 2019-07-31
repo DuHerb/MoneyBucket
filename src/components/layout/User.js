@@ -9,17 +9,18 @@ import { compose } from 'redux'
 import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
 import { reduxFirestore,getFirestore } from 'redux-firestore';
 
+
 const User = (state) => {
   // const counter = state.buckets.length()
-  console.log("user state.buckets ", state)
-  const[localState, setlocalState] = useState()
+  // console.log("user state.buckets ", state)
+  // const[localState, setlocalState] = useState()
 
   useEffect(() => {
-    console.log('useEffect', state.buckets)
-    const localState = state.buckets;
-    console.log('localstate:', localState)
+    // console.log('useEffect', state.buckets)
+    // const localState = state.buckets;
+    // console.log('localstate:', localState)
 
-    setlocalState(state.buckets)
+    // setlocalState(state.buckets)
     // console.log(' preset localState', localState);
     // const firestore = getFirestore();
     // let localArray = []
