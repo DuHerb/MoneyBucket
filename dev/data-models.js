@@ -24,7 +24,7 @@ const bucket = {
   minAmount: Number, //if(isMinRequired), minAmount is $ that must keep before passing value to next bucket
   currentValue: Number,
   isLocked: Boolean, //if(isLocked), bucket will be skipped and no changes made to current Value
-  isPool: Boolean, //if(isPool), bucket is last bucket in stack.  This bucket will not be removable or draggable, and will collect all $ at end of reduction 
+  isPool: Boolean, //if(isPool), bucket is last bucket in stack.  This bucket will not be removable or draggable, and will collect all $ at end of reduction
   history: Array, //list of transactions. rudimentary transaction history in case I have time to implement a view to use it.
 }
 
