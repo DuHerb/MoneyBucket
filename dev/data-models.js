@@ -22,7 +22,7 @@ const bucket = {
   staticHoldValue: Number, //if (filterType === 'static') staticAmount = $ that bucket keeps
   percentHoldValue: Number, //if filterType == 'percent', percentHoldValue is % of input that bucket holds
   isMinRequired: Boolean,
-  minAmount: Number, //if(isMinRequired) minAmount is $ that must keep before passing value to next bucket
+  minHoldValue: Number, //if(isMinRequired) minAmount is $ that must keep before passing value to next bucket
   currentValue: Number,
   isLocked: Boolean, //if(isLocked), bucket will be skipped and no changes made to current Value
   isPool: Boolean, //if(isPool), bucket is last bucket in stack.  This bucket will not be removable or draggable, and will collect all $ at end of reduction

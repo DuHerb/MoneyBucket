@@ -49,8 +49,6 @@ const useStyles = makeStyles({
 const CreateBucket = (props) => {
 const classes = useStyles()
 const [state, setState] = useState({
-  name: '',
-  // targetValue:'',
   filterType: 'static',
   isMinRequired: 'false',
 })
@@ -61,10 +59,10 @@ const handleChange = name => (e) => {
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  // props.createBucket(state);
+  props.createBucket(state);
   console.log(state);
   // console.log(props.createBucket);
-  // props.history.push('/');
+  props.history.push('/user');
 }
 
   return (
@@ -72,33 +70,33 @@ const handleSubmit = (e) => {
       <h2>Create New Bucket</h2>
       <div className={classes.formContainer}>
         <form className={classes.form} onSubmit={handleSubmit}>
-        <TextField
-          id="name"
-          label="Bucket Name"
-          placeholder="What are you saving for?"
-          onChange={handleChange('name')}
-          margin="normal"
-          required
-        />
-        <TextField
-          id="targetValue"
-          label="Target Value"
-          placeholder="How much money should this bucket collect?"
-          onChange={handleChange('targetValue')}
-          className={classes.textField}
-          margin="normal"
-          type='number'
-          required
-        />
-        <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend" style={{color: 'gray'}}>Filter Method</FormLabel>
-        <RadioGroup
-          aria-label="filterType"
-          name="filterType"
-          className={classes.group}
-          value={state.filterType}
-          onChange={handleChange('filterType')}
-        >
+          <TextField
+            id="name"
+            label="Bucket Name"
+            placeholder="What are you saving for?"
+            onChange={handleChange('name')}
+            margin="normal"
+            required
+          />
+          <TextField
+            id="targetValue"
+            label="Target Value"
+            placeholder="How much money should this bucket collect?"
+            onChange={handleChange('targetValue')}
+            className={classes.textField}
+            margin="normal"
+            type='number'
+            required
+          />
+          <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend" style={{color: 'gray'}}>Filter Method</FormLabel>
+          <RadioGroup
+            aria-label="filterType"
+            name="filterType"
+            className={classes.group}
+            value={state.filterType}
+            onChange={handleChange('filterType')}
+          >
           <FormControlLabel value='static' control={<Radio className={classes.radioButton} />} label="Flat Value" labelPlacement="bottom"/>
           <FormControlLabel value='percent' control={<Radio className={classes.radioButton} />} label="Percentage" labelPlacement="bottom"/>
         </RadioGroup>
@@ -144,28 +142,22 @@ const handleSubmit = (e) => {
               </RadioGroup>
             </FormControl>
           </div>
-            {state.isMinRequired === 'true' ?
-              <TextField
-                id="minHoldValue"
-                label="What is the Minimum amount to be held"
-                placeholder="example: keep 10% of $80 = $10"
-                onChange={handleChange('staticHoldValue')}
-                className={classes.textField}
-                margin="normal"
-                type='number'
-                required
-                fullwidth='true'
-              />
-              : null
-            }
+          {state.isMinRequired === 'true' ?
+            <TextField
+              id="minHoldValue"
+              label="What is the Minimum amount to be held"
+              placeholder="example: keep 10% of $80 = $10"
+              onChange={handleChange('staticHoldValue')}
+              className={classes.textField}
+              margin="normal"
+              type='number'
+              required
+              fullwidth='true'
+            />
+            : null
+          }
         </div>
         }
-
-
-
-
-
-
         <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
         </form>
       </div>

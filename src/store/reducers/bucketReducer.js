@@ -17,8 +17,15 @@ const bucketReducer = (state = {}, action) => {
       return state;
     case 'REORDER_BUCKETS':
       console.log('reorder buckets', action);
-      const newState = Object.assign({}, ...action.buckets);
-      return newState;
+      // const newState = Object.assign({}, ...action.buckets);
+      // console.log('newstate: ', newState)
+      return state;
+    case 'TOGGLE_LOCKED':
+      console.log('lock toggled', action);
+      return state;
+    case 'TOGGLE_LOCKED_ERROR':
+        console.log('toggle locked error', action);
+        return state;
     default:
       return state;
   }

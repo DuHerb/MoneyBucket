@@ -13,7 +13,6 @@ const useStyles = makeStyles({
 
 const MainContainer = ({buckets}) => {
   const classes = useStyles();
-  console.log('main', buckets);
   // const ordered = (buckets =>{
   //   const newBuckets = buckets;
   //   newBuckets.sort((a,b) => (a.order > b.order) ? 1 : -1)
@@ -25,9 +24,9 @@ const MainContainer = ({buckets}) => {
   return (
     <>
     <div className={classes.bucketList}>
-      {buckets && buckets.map((item, index )=> {
+      {buckets && buckets.map((bucket, index )=> {
         return (
-          <Bucket item={item} key={item.id} index={index} />
+          <Bucket bucket={bucket} key={bucket.id} index={index} />
         )
       })}
     </div>

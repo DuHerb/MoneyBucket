@@ -52,10 +52,11 @@ const User = (state) => {
     );
     console.log("ondragend", newOrder)
     state.reorderBuckets(newOrder)
+    console.log(state.redux);
+    
 
   }
   return (
-  
     <DragDropContext onDragEnd={onDragEnd}>
       <>
         <div>
@@ -89,6 +90,7 @@ const mapStateToProps = (state) => {
     // buckets: state.bucket.buckets
     // buckets: state.bucket.initState.buckets
     // firestore data
+    redux: state,
     buckets: state.firestore.ordered.buckets
   }
 }
@@ -96,6 +98,6 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: 'buckets', where: ['name', '==', 'm']}
+    { collection: 'buckets', where: ['name', '==', 'm'], orderBy: ['order']}
   ])
 )(User)

@@ -11,6 +11,7 @@ import NavActions from './NavActions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
+import {withRouter} from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -59,12 +60,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
+    // console.log(props);
   }
   return (
     <Card className={classes.card}>
@@ -92,10 +94,10 @@ const Navbar = () => {
         </AppBar>
       </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <NavActions />
+        <NavActions location={props.location.pathname}/>
       </Collapse>
     </Card>
   )
 }
 
-export default Navbar
+export default withRouter(Navbar)
