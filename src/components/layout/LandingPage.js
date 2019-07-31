@@ -5,7 +5,7 @@ const LandingPage = () => {
   
 
   useEffect(() => {
-    console.log('landing Page ', mainBucketFilter(testBuckets, 1000));
+    console.log('landing Page ', mainBucketFilter(testBuckets, 100));
   })
 
   
