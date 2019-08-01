@@ -50,7 +50,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: green[500]
   },
   appBar: {
     backgroundColor: 'white',
