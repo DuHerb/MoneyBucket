@@ -44,6 +44,12 @@ export const makeDeposit = (value) => {
           dispatch({ type: 'FILTER_BUCKET_ERROR', err})
         })
       })
+    }).then(() => {
+      firestore.update({collection: 'moneybuckets', where:['userId', '==', userId]}, {value: batchArray[1]})
+    }).then(()=> {
+      dispatch({ type: 'MONEYBUCKET_UPDATE'})
+    }).catch((err) => {
+      dispatch({ type: 'MONEYBUCKET_UPDATE_ERROR', err})
     })
   }
 }

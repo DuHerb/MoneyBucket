@@ -18,14 +18,16 @@ const useStyles = makeStyles({
 
 })
 
-const Bucket = () => {
+const Bucket = ({moneybucket}) => {
+  console.log('moneybucket', moneybucket);
+  
   const classes = useStyles();
   return (
     <div className={classes.bucket}>
       <div className={classes.bucketInfo}>
-        <p>Money Bucket</p>
+        <h3>Money Bucket</h3>
       </div>
-      <p className={classes.bucketValue}>Bucket $Value</p>
+      {/* {moneybucket.currentValue && <h3 className={classes.bucketValue}>${moneybucket.currentValue}</h3>} */}
     </div>
   )
 }
