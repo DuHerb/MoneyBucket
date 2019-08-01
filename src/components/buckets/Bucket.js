@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     backgroundColor: 'white'
   },
+  bucketLocked: {
+    backgroundColor: 'lightgrey'
+  },
   bucketInfo: {
     padding: 10
   },
@@ -47,7 +50,7 @@ const Bucket = ({bucket, index, toggleIsLocked}) => {
   return (
     <Draggable draggableId={bucket.id} index={index} isDragDisabled={bucket.isDisabled}>
       {(provided, snapshot) =>(
-        <div className={classes.bucket}
+        <div className={bucket.isLocked ? `${classes.bucket} ${classes.bucketLocked}` : `${classes.bucket}`}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -60,7 +63,7 @@ const Bucket = ({bucket, index, toggleIsLocked}) => {
             {bucket.isLocked === false ? <LockOpen className={classes.icon} onClick={onToggleIsLocked} /> : <Lock className={classes.icon} onClick={onToggleIsLocked} />}
           </div>
           <p className={classes.bucketValue}>{bucket.currentValue}</p>
-          <BucketFillBar />
+          {/* <BucketFillBar /> */}
       </div>
       )}
     </Draggable>

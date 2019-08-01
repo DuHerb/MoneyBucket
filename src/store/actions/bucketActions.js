@@ -46,7 +46,6 @@ export const toggleIsLocked = (bucket) => {
     }).catch((err) => {
       dispatch({ type: 'TOGGLE_LOCKED_ERROR', err})
     })
-    //need to return anything else?
     firestore.get({collection: 'buckets', where: ['userId', '==', userId] ,orderBy: ['order']})
   }
 }
