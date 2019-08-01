@@ -35,7 +35,7 @@ const LandingPage = () => {
 
   return (
     <div>
-      <h2 style={{textAlign: 'center'}}>Welcome to Money Buckets</h2>
+      <h2 style={{textAlign: 'center'}}>Welcome to Money Bucket</h2>
       <div className={classes.buttonGroup}>
       <Link to='/login' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.loginButton}`}>
         Log In
