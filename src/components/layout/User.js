@@ -54,15 +54,10 @@ const User = (state) => {
     console.log("ondragend", newOrder)
     state.reorderBuckets(newOrder)
     console.log(state.redux);
-    
-
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <>
-        <div>
-          a logged in user should go here.  for now, it will be the main bucket container
-        </div>
         <Droppable droppableId='list'>
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} >

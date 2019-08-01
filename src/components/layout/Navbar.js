@@ -67,7 +67,6 @@ const Navbar = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   console.log('nav props:', props);
-  
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -78,10 +77,11 @@ const Navbar = (props) => {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <div className={classes.login}>
-            <Link to='/' style={{textDecoration: 'none'}}><Avatar aria-label="recipe" className={classes.avatar}>$</Avatar></Link>
-              {/* <Button color="inherit">Login</Button> */}
+              <Link to='/' style={{textDecoration: 'none'}}><Avatar aria-label="recipe" className={classes.avatar}>
+                {props.profile.initials ? <p>{props.profile.initials}</p> : '$' }
+              </Avatar></Link>
             </div>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h4" className={classes.title}>
               MoneyBucket
             </Typography>
             <IconButton
@@ -93,7 +93,7 @@ const Navbar = (props) => {
               aria-label="show more"
               >
               <MenuIcon />
-          </IconButton>
+            </IconButton>
           </Toolbar>
         </AppBar>
       </div>
@@ -107,7 +107,7 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
   console.log('navbar state: ', state);
   return {
-    test: 'test prop'
+    profile: state.firebase.profile
   }
 }
 

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   }
 })
 
-const LandingPage = ({signOut, auth}) => {
+const LandingPage = ({signOut, auth, profile}) => {
 
   const classes = useStyles();
 
@@ -37,12 +37,14 @@ const LandingPage = ({signOut, auth}) => {
 
   return (
     <div>
-      
       <div className={classes.buttonGroup}>
 
       { auth.uid ?
         <>
+          <h2>Hi {profile.firstName}!</h2>
           <h2 style={{textAlign: 'center'}}>Welcome to Money Bucket</h2>
+          <h3>Press the menu icon to get started</h3>
+          <p>OR</p>
           <Button variant="contained" className={`${classes.button} ${classes.signupButton}`} onClick={signOut}>
             Sign Out
           </Button>
@@ -66,7 +68,8 @@ const LandingPage = ({signOut, auth}) => {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   }
 }
 
