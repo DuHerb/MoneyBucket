@@ -1,43 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import MainContainer from './../layout/MainContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import MoneyBucket from './../buckets/MoneyBucket';
-// import { reorder } from './../../functions/dndFuncs';
 import { connect } from 'react-redux';
 import {firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'
 import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
-import { reduxFirestore,getFirestore } from 'redux-firestore';
 import { Redirect } from 'react-router-dom'
-import { getState } from 'redux'
-
 
 const User = (state) => {
-  // const counter = state.buckets.length()
-  // console.log("user state.buckets ", state)
-  // const[localState, setlocalState] = useState()
+
   if(!state.auth.uid) return <Redirect to='/' />
-
-  // useEffect(() => {
-    // console.log('useEffect', state.buckets)
-    // const localState = state.buckets;
-    // console.log('localstate:', localState)
-
-    // setlocalState(state.buckets)
-    // console.log(' preset localState', localState);
-    // const firestore = getFirestore();
-    // let localArray = []
-    // firestore.collection('buckets').get().then(response => {
-    //   console.log(response);
-    //   response.forEach(doc => {
-    //     localArray.push(doc.data())
-    //   })
-    //   console.log('localAray', localArray);
-    //   console.log('localState', localState);
-    // });
-    // setlocalState(localArray);
-  // })
-
 
   function onDragEnd(result) {
     if (!result.destination) {
@@ -70,7 +43,6 @@ const User = (state) => {
         </Droppable>
         </>
       </DragDropContext>
-    // <p>test -- looking for store from firebase</p>
   )
 }
 
@@ -81,12 +53,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('state w/ firestore ', state);
   return {
-    // dummy data
-    // buckets: state.bucket.buckets
-    // buckets: state.bucket.initState.buckets
-    // firestore data
     auth: state.firebase.auth,
     buckets: state.firestore.ordered.buckets
   }
