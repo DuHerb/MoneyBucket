@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 const Navbar = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  console.log('nav props:', props);
+  // console.log('nav props:', props);
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -105,7 +105,7 @@ const Navbar = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('navbar state: ', state);
+  // console.log('navbar state: ', state);
   return {
     profile: state.firebase.profile
   }

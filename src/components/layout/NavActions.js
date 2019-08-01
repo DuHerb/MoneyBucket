@@ -26,7 +26,9 @@ const NavActions = ({location}) => {
         :
         null
       }
-      <Button variant="outlined" className={`${classes.button} ${classes.navButton}`}>Make Deposit</Button>
+      {location !== '/deposit' &&
+        <Link to='/deposit' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.navButton}`}>Make Deposit</Button></Link>
+      }
       <Link to='/createbucket' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.navButton}`}>New Bucket</Button></Link>
     </div>
   )

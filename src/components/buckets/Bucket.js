@@ -27,7 +27,8 @@ const useStyles = makeStyles({
   }
 
 })
-//controls drag and drop animation speed.  look up beautiful-dnd docs for other animations changes
+//controls drag and drop animation speed.
+//look up beautiful-dnd docs for other animations changes
 function getDropStyle(style, snapshot) {
   if (!snapshot.isDropAnimating) {
     return style;
@@ -46,7 +47,7 @@ const Bucket = ({bucket, index, toggleIsLocked}) => {
   const onToggleIsLocked = () => {
     toggleIsLocked(bucket);
   }
-  // console.log('from bucket', bucket, index);
+
   return (
     <Draggable draggableId={bucket.id} index={index} isDragDisabled={bucket.isDisabled}>
       {(provided, snapshot) =>(
