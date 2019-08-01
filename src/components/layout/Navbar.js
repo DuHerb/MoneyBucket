@@ -91,6 +91,7 @@ const Navbar = (props) => {
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
+              disabled={props.profile.initials ? false : true}
               >
               <MenuIcon />
             </IconButton>
