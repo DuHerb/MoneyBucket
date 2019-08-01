@@ -50,7 +50,7 @@ export function mainBucketFilter(buckets, depositValue) {
   buckets.forEach(bucket => {
     const result = filterBucket(bucket, remainder);
     if(result) {
-      batchArray.push(result)
+      batchArray.push(result[0])
       //result[1] is the remainder of inputValue after passing through a bucketFilter
       remainder = result[1]
       // console.log('next input', inputValue);
@@ -104,7 +104,7 @@ const handleCase = (bucket, inputValue, filterType) => {
       // and return remainder of inputValue as array[1]
       return [
               {
-                uid: bucket.uid,
+                id: bucket.id,
                 newCurrentValue: bucket.targetValue,
                 valueChange: (bucket.targetValue - bucket.currentValue)
               },
@@ -115,7 +115,7 @@ const handleCase = (bucket, inputValue, filterType) => {
       // subtract holdValue from inputValue and return remainder as array[1]
       return [
               {
-                uid: bucket.uid,
+                id: bucket.id,
                 newCurrentValue: holdValue + bucket.currentValue,
                 valueChange: holdValue
               },
@@ -128,7 +128,7 @@ const handleCase = (bucket, inputValue, filterType) => {
       //set currentValue to targetValue and return remainder as array[1]
       return [
         {
-          uid: bucket.uid,
+          id: bucket.id,
           newCurrentValue: bucket.targetValue,
           valueChange: (bucket.targetValue - bucket.currentValue)
         },
@@ -139,7 +139,7 @@ const handleCase = (bucket, inputValue, filterType) => {
       //add inputValue to currentValue and return 0 as array[1].
       return [
               {
-                uid: bucket.uid,
+                id: bucket.id,
                 newCurrentValue: inputValue + bucket.currentValue,
                 valueChange: inputValue
               },

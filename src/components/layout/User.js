@@ -53,6 +53,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
+  // console.log('from user', state);
+  
   return {
     auth: state.firebase.auth,
     buckets: state.firestore.ordered.buckets

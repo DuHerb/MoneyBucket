@@ -26,6 +26,12 @@ const bucketReducer = (state = {}, action) => {
     case 'TOGGLE_LOCKED_ERROR':
         console.log('toggle locked error', action);
         return state;
+    case 'FILTER_BUCKET':
+        console.log('bucket filter success');
+        return state;
+    case 'FILTER_BUCKET_ERROR':
+        console.log('bucket filter error', action.err);
+        return state;
     default:
       return state;
   }
