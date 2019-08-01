@@ -46,21 +46,21 @@ export const testBuckets = [
 
 export function mainBucketFilter(buckets, depositValue) {
   let batchArray = []
-  let inputValue = depositValue;
+  let remainder = depositValue;
   buckets.forEach(bucket => {
-    const result = filterBucket(bucket, inputValue);
+    const result = filterBucket(bucket, remainder);
     if(result) {
       batchArray.push(result)
       //result[1] is the remainder of inputValue after passing through a bucketFilter
-      inputValue = result[1]
-      console.log('next input', inputValue);
+      remainder = result[1]
+      // console.log('next input', inputValue);
     }
   })
       //need to return an object containing information needed to create a batch write to firestore.
       //need bucketUid, newCurrentValue for batch
       //need new output value to pass to next bucket
-      //return leftOverValue to pool
-      return [batchArray, inputValue];
+      //return remainder to pool
+      return [batchArray, remainder];
     }
 
 function filterBucket(bucket, inputValue) {

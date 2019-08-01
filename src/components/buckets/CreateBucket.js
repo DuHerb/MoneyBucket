@@ -57,6 +57,10 @@ const handleChange = name => (e) => {
   setState({...state, [name]: e.target.value })
 }
 
+const handleIntChange = name => (e) => {
+  setState({...state, [name]: +e.target.value })
+}
+
 const handleSubmit = (e) => {
   e.preventDefault();
   props.createBucket(state);
@@ -83,7 +87,7 @@ const handleSubmit = (e) => {
             id="targetValue"
             label="Target Value"
             placeholder="How much money should this bucket collect?"
-            onChange={handleChange('targetValue')}
+            onChange={handleIntChange('targetValue')}
             className={classes.textField}
             margin="normal"
             type='number'
@@ -105,10 +109,10 @@ const handleSubmit = (e) => {
       {state.filterType === 'static' ?
         <div id='staticOptions'>
           <TextField
-            id="targetValue"
+            id="staticHoldValue"
             label="Flat amount to be kept each deposit."
             placeholder="example: keep $10 of $500 = $10"
-            onChange={handleChange('staticHoldValue')}
+            onChange={handleIntChange('staticHoldValue')}
             className={classes.textField}
             margin="normal"
             type='number'
@@ -118,10 +122,10 @@ const handleSubmit = (e) => {
         </div> :
         <div id='percentOptions'>
           <TextField
-            id="targetValue"
+            id="percentHoldValue"
             label="Percentage of deposit to be kept each deposit"
             placeholder="example: keep 10% of $500 = $50"
-            onChange={handleChange('targetValue')}
+            onChange={handleIntChange('percentHoldValue')}
             className={classes.textField}
             margin="normal"
             type='number'
@@ -148,7 +152,7 @@ const handleSubmit = (e) => {
               id="minHoldValue"
               label="What is the Minimum amount to be held"
               placeholder="example: keep 10% of $80 = $10"
-              onChange={handleChange('staticHoldValue')}
+              onChange={handleIntChange('minHoldValue')}
               className={classes.textField}
               margin="normal"
               type='number'

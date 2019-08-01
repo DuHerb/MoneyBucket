@@ -1,3 +1,4 @@
+import { mainBucketFilter } from '../../functions/filterFuncs'
 
 export const createBucket = (bucket) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
@@ -20,6 +21,25 @@ export const createBucket = (bucket) => {
     })
   }
 };
+
+export const makeDeposit = (value) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid;
+    let tempArray = []
+    firestore.get({collection: 'buckets', where: ['userId', '==', userId] ,orderBy: ['order']}).then((response) => {
+      console.log(response)
+      response.forEach(doc => {
+        tempArray.push(doc.data())
+      })
+      console.log(tempArray);
+      const batchArray = mainBucketFilter(tempArray, value);
+      console.log(batchArray);
+      
+      
+    })
+  }
+}
 
 export const reorderBuckets = (buckets) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
@@ -50,9 +70,7 @@ export const toggleIsLocked = (bucket) => {
   }
 }
 
-
 export const reorderArray = (list, startIndex, endIndex) => {
-  // console.log('from reorder function', list);
 
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);

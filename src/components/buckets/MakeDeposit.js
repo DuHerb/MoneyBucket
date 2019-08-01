@@ -3,9 +3,9 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
-import { signIn } from '../../store/actions/authActions'
 import { green } from '@material-ui/core/colors';
 import { Redirect } from 'react-router-dom';
+import { makeDeposit } from '../../store/actions/bucketActions'
 
 const useStyles = makeStyles({
   formContainer: {
@@ -45,6 +45,7 @@ const MakeDeposit = (props) => {
     e.preventDefault();
     console.log('depositValue:', depositValue);
     console.log('makedeposit state: ', props);
+    props.makeDeposit(depositValue)
     props.history.push('/user')
   }
 
@@ -79,7 +80,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (creds) => dispatch(signIn(creds))
+    makeDeposit: (value) => dispatch(makeDeposit(value))
   }
 }
 
