@@ -38,7 +38,7 @@ export const makeDeposit = (value) => {
       console.log('filter results', batchArray);
     }).then(() => {
       batchArray[0].forEach(bucket => {
-        firestore.update({ collection: 'buckets', doc: bucket.id}, {currentValue: bucket.newCurrentValue}).then(() => {
+        firestore.update({ collection: 'buckets', doc: bucket.id}, {currentValue: bucket.newCurrentValue, valueChange: bucket.valueChange}).then(() => {
           dispatch({ type: 'FILTER_BUCKET'})
         }).catch((err) => {
           dispatch({ type: 'FILTER_BUCKET_ERROR', err})
