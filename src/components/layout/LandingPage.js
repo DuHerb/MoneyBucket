@@ -30,8 +30,7 @@ const useStyles = makeStyles({
 const LandingPage = ({signOut, auth}) => {
 
   const classes = useStyles();
-  console.log(auth);
-  
+
   // useEffect(() => {
   //   console.log('landing Page ', mainBucketFilter(testBuckets, 100));
   // })
@@ -42,7 +41,6 @@ const LandingPage = ({signOut, auth}) => {
       <div className={classes.buttonGroup}>
 
       { auth.uid ?
-      
         <Button variant="contained" className={`${classes.button} ${classes.signupButton}`} onClick={signOut}>
           Sign Out
         </Button>
@@ -56,10 +54,12 @@ const LandingPage = ({signOut, auth}) => {
           </Button></Link>
         </>
       }
+
       </div>
     </div>
   )
 }
+
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth
@@ -71,4 +71,5 @@ const mapDispatchToProps = (dispatch) => {
     signOut: () => dispatch(signOut())
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
