@@ -1,11 +1,10 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState }from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { signUp } from '../../store/actions/authActions'
-
 
 const useStyles = makeStyles({
   formContainer: {
@@ -40,7 +39,6 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   }
 })
-
 
 const Signup = ({auth, signUp, authError}) => {
   const classes = useStyles();

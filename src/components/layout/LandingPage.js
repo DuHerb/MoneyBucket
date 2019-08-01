@@ -1,5 +1,4 @@
-import React, { useEffect }from 'react'
-import { testBuckets, mainBucketFilter } from '../../functions/filterFuncs';
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
@@ -30,10 +29,6 @@ const useStyles = makeStyles({
 const LandingPage = ({signOut, auth, profile}) => {
 
   const classes = useStyles();
-
-  // useEffect(() => {
-  //   console.log('landing Page ', mainBucketFilter(testBuckets, 100));
-  // })
 
   return (
     <div>
