@@ -6,6 +6,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import LandingPage from './components/layout/LandingPage';
 import User from './components/layout/User'
 import CreateBucket from './components/buckets/CreateBucket';
+import MakeDeposit from './components/buckets/MakeDeposit';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/createbucket' component={CreateBucket} />
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
+          <Route path='/deposit' component={MakeDeposit} />
         </Switch>
       </div>
     </BrowserRouter>
