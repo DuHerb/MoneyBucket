@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions'
-
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   formContainer: {
@@ -16,30 +16,20 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
   },
-  root: {
-    display: 'flex',
-  },
   formControl: {
     margin: 10,
     textAlign: 'center'
   },
-  group: {
-    margin: 10,
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  radioButton : {
-    color: 'green !important'
-  },
   textField: {
     width: '100%',
   },
-  minReqControl: {
-    display: 'flex',
-    justifyContent: 'center'
+  submitLogin: {
+    width: 200,
+    backgroundColor: green[500],
+    color: 'white',
+    margin: '0 auto'
   }
 })
-
 
 const Login = ({signIn, authError}) => {
   const classes = useStyles();
@@ -82,8 +72,10 @@ const Login = ({signIn, authError}) => {
             type='password'
             required
           />
-        <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
-        <div style={{textAlign: 'center', color: 'red'}}>{authError ? <p>{authError}</p> : null}</div>
+        <Button variant="contained" className={classes.submitLogin} onClick={handleSubmit}>Submit</Button>
+        <div style={{textAlign: 'center', color: 'red'}}>
+          {authError ? <p>{authError}</p> : null}
+        </div>
         </form>
       </div>
     </>

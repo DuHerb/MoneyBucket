@@ -21,7 +21,7 @@ const NavActions = ({location}) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      {location != '/user' ?
+      {location !== '/user' ?
         <Link to='/user' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.navButton}`}>Your Buckets</Button></Link>
         :
         null
