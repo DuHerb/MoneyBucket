@@ -9,6 +9,7 @@ import { compose } from 'redux'
 import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
 import { reduxFirestore,getFirestore } from 'redux-firestore';
 import { Redirect } from 'react-router-dom'
+import { getState } from 'redux'
 
 
 const User = (state) => {
@@ -93,7 +94,7 @@ const mapStateToProps = (state) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([
-    { collection: 'buckets', where: ['name', '==', 'm'], orderBy: ['order']}
+  firestoreConnect( props => [
+    { collection: 'buckets', where: ['userId', '==', props.auth.uid], orderBy: ['order']}
   ])
 )(User)

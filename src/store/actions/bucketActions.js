@@ -2,9 +2,12 @@
 export const createBucket = (bucket) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     const firestore = getFirestore();
+    // const profile = getState().firebase.profile
+    const userId = getState().firebase.auth.uid
 
     firestore.collection('buckets').add({
       ...bucket,
+      userId: userId,
       currentValue: 0,
       isLocked: false,
       isDisabled: false,
@@ -21,7 +24,7 @@ export const createBucket = (bucket) => {
 export const reorderBuckets = (buckets) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     const firestore = getFirestore();
-    // console.log(buckets);
+    const userId = getState().firebase.auth.uid
     buckets.forEach((bucket, index) => {
       // console.log(bucket, index);
       firestore.update({ collection: 'buckets', doc: bucket.id}, {order: index}).then(() => {
@@ -30,20 +33,21 @@ export const reorderBuckets = (buckets) => {
         dispatch({ type: 'REORDER_BUCKETS_ERROR', err})
       })
     })
-    firestore.get({collection: 'buckets', where: ['name', '==', 'm'] ,orderBy: ['order']})
+    firestore.get({collection: 'buckets', where: ['userId', '==', userId] ,orderBy: ['order']})
   }
 }
 
 export const toggleIsLocked = (bucket) => {
   return(dispatch, getState, {getFirebase, getFirestore}) => {
     const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid
     firestore.update({collection: 'buckets', doc: bucket.id}, {isLocked: !bucket.isLocked}).then(()=>{
       dispatch({ type: 'TOGGLE_LOCKED', bucket})
     }).catch((err) => {
       dispatch({ type: 'TOGGLE_LOCKED_ERROR', err})
     })
     //need to return anything else?
-    firestore.get({collection: 'buckets', where: ['name', '==', 'm'] ,orderBy: ['order']})
+    firestore.get({collection: 'buckets', where: ['userId', '==', userId] ,orderBy: ['order']})
   }
 }
 
