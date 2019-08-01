@@ -11,7 +11,11 @@ import NavActions from './NavActions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
+import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+//TODO: make avatar and icons visible only if logged in
 const useStyles = makeStyles(theme => ({
   card: {
     width: '100%',
@@ -59,9 +63,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  // console.log('nav props:', props);
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -72,10 +77,11 @@ const Navbar = () => {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <div className={classes.login}>
-              <Avatar aria-label="recipe" className={classes.avatar}>R</Avatar>
-              {/* <Button color="inherit">Login</Button> */}
+              <Link to='/' style={{textDecoration: 'none'}}><Avatar aria-label="recipe" className={classes.avatar}>
+                {props.profile.initials ? <p>{props.profile.initials}</p> : '$' }
+              </Avatar></Link>
             </div>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h4" className={classes.title}>
               MoneyBucket
             </Typography>
             <IconButton
@@ -87,15 +93,23 @@ const Navbar = () => {
               aria-label="show more"
               >
               <MenuIcon />
-          </IconButton>
+            </IconButton>
           </Toolbar>
         </AppBar>
       </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <NavActions />
+        <NavActions location={props.location.pathname}/>
       </Collapse>
     </Card>
   )
 }
 
-export default Navbar
+const mapStateToProps = (state) => {
+  // console.log('navbar state: ', state);
+  return {
+    profile: state.firebase.profile
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(Navbar))
+
