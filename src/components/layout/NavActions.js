@@ -26,10 +26,10 @@ const NavActions = ({location}) => {
         :
         null
       }
-      {location !== '/deposit' &&
+      {(location !== '/deposit' && location !== '/' && location !== '/createbucket') &&
         <Link to='/deposit' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.navButton}`}>Make Deposit</Button></Link>
       }
-      {location !== '/createbucket' &&
+      {(location !== '/createbucket' && location !== '/deposit') &&
         <Link to='/createbucket' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.navButton}`}>New Bucket</Button></Link>
       }
     </div>
