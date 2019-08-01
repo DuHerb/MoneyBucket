@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/layout/Navbar';
-
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup'
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import LandingPage from './components/layout/LandingPage';
 import User from './components/layout/User'
@@ -15,6 +16,8 @@ function App() {
           <Route exact path='/' component={LandingPage} />
           <Route path='/user' component={User} />
           <Route path='/createbucket' component={CreateBucket} />
+          <Route path='/login' component={Login} />
+          <Route path='/signup' component={Signup} />
         </Switch>
       </div>
     </BrowserRouter>

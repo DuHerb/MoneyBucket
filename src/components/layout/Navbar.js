@@ -12,6 +12,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -63,6 +65,8 @@ const useStyles = makeStyles(theme => ({
 const Navbar = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  console.log('nav props:', props);
+  
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -74,7 +78,7 @@ const Navbar = (props) => {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <div className={classes.login}>
-              <Avatar aria-label="recipe" className={classes.avatar}>R</Avatar>
+            <Link to='/' style={{textDecoration: 'none'}}><Avatar aria-label="recipe" className={classes.avatar}>R</Avatar></Link>
               {/* <Button color="inherit">Login</Button> */}
             </div>
             <Typography variant="h6" className={classes.title}>
@@ -100,4 +104,12 @@ const Navbar = (props) => {
   )
 }
 
-export default withRouter(Navbar)
+const mapStateToProps = (state) => {
+  console.log('navbar state: ', state);
+  return {
+    test: 'test prop'
+  }
+}
+export default withRouter(connect(mapStateToProps)(Navbar))
+
+// export default withRouter(Navbar)
