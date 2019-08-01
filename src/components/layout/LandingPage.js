@@ -3,8 +3,9 @@ import { testBuckets, mainBucketFilter } from '../../functions/filterFuncs';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signOut } from '../../store/actions/authActions'
 
 const useStyles = makeStyles({
   buttonGroup: {
@@ -25,30 +26,49 @@ const useStyles = makeStyles({
     width: 200
   }
 })
-const LandingPage = () => {
+
+const LandingPage = ({signOut, auth}) => {
 
   const classes = useStyles();
-
-  useEffect(() => {
-    console.log('landing Page ', mainBucketFilter(testBuckets, 100));
-  })
+  console.log(auth);
+  
+  // useEffect(() => {
+  //   console.log('landing Page ', mainBucketFilter(testBuckets, 100));
+  // })
 
   return (
     <div>
       <h2 style={{textAlign: 'center'}}>Welcome to Money Bucket</h2>
       <div className={classes.buttonGroup}>
-      <Link to='/login' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.loginButton}`}>
-        Log In
-      </Button></Link>
-      <Link to='/signup' style={{textDecoration: 'none'}}><Button variant="contained" className={`${classes.button} ${classes.signupButton}`}>
-        Sign Up
-      </Button></Link>
-      <Link to='/' style={{textDecoration: 'none'}}><Button variant="contained" className={`${classes.button} ${classes.signupButton}`}>
-        Sign Out
-      </Button></Link>
+
+      { auth.uid ?
+      
+        <Button variant="contained" className={`${classes.button} ${classes.signupButton}`} onClick={signOut}>
+          Sign Out
+        </Button>
+        :
+        <>
+          <Link to='/login' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.loginButton}`}>
+            Log In
+          </Button></Link>
+          <Link to='/signup' style={{textDecoration: 'none'}}><Button variant="contained" className={`${classes.button} ${classes.signupButton}`}>
+            Sign Up
+          </Button></Link>
+        </>
+      }
       </div>
     </div>
   )
 }
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
 
-export default LandingPage
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
