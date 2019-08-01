@@ -37,15 +37,19 @@ const LandingPage = ({signOut, auth}) => {
 
   return (
     <div>
-      <h2 style={{textAlign: 'center'}}>Welcome to Money Bucket</h2>
+      
       <div className={classes.buttonGroup}>
 
       { auth.uid ?
-        <Button variant="contained" className={`${classes.button} ${classes.signupButton}`} onClick={signOut}>
-          Sign Out
-        </Button>
+        <>
+          <h2 style={{textAlign: 'center'}}>Welcome to Money Bucket</h2>
+          <Button variant="contained" className={`${classes.button} ${classes.signupButton}`} onClick={signOut}>
+            Sign Out
+          </Button>
+        </>
         :
         <>
+        <h2 style={{textAlign: 'center'}}>Sign In To Save</h2>
           <Link to='/login' style={{textDecoration: 'none'}}><Button variant="outlined" className={`${classes.button} ${classes.loginButton}`}>
             Log In
           </Button></Link>

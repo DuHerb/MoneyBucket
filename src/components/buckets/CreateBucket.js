@@ -2,15 +2,15 @@ import React from 'react'
 import { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
 import { createBucket } from '../../store/actions/bucketActions'
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import { Redirect } from 'react-router-dom'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
 
 const useStyles = makeStyles({
   formContainer: {
@@ -65,6 +65,7 @@ const handleSubmit = (e) => {
   props.history.push('/user');
 }
 
+  if(!props.auth.uid) return <Redirect to='/' />
   return (
     <>
       <h2>Create New Bucket</h2>
@@ -165,10 +166,16 @@ const handleSubmit = (e) => {
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     createBucket: (bucket) => dispatch(createBucket(bucket))
   }
 }
 
-export default connect(null, mapDispatchToProps)(CreateBucket)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateBucket)

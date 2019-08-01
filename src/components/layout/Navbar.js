@@ -15,6 +15,7 @@ import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+//TODO: make avatar and icons visible only if logged in
 const useStyles = makeStyles(theme => ({
   card: {
     width: '100%',
@@ -70,7 +71,6 @@ const Navbar = (props) => {
 
   function handleExpandClick() {
     setExpanded(!expanded);
-    // console.log(props);
   }
   return (
     <Card className={classes.card}>
@@ -78,7 +78,7 @@ const Navbar = (props) => {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <div className={classes.login}>
-            <Link to='/' style={{textDecoration: 'none'}}><Avatar aria-label="recipe" className={classes.avatar}>R</Avatar></Link>
+            <Link to='/' style={{textDecoration: 'none'}}><Avatar aria-label="recipe" className={classes.avatar}>$</Avatar></Link>
               {/* <Button color="inherit">Login</Button> */}
             </div>
             <Typography variant="h6" className={classes.title}>
@@ -110,6 +110,6 @@ const mapStateToProps = (state) => {
     test: 'test prop'
   }
 }
+
 export default withRouter(connect(mapStateToProps)(Navbar))
 
-// export default withRouter(Navbar)

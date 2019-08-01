@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions'
 import { green } from '@material-ui/core/colors';
+import { Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles({
   formContainer: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Login = ({signIn, authError}) => {
+const Login = ({signIn, authError, auth}) => {
   const classes = useStyles();
   const [creds, setCreds] = useState();
 
@@ -47,7 +48,7 @@ const Login = ({signIn, authError}) => {
     // console.log(props.createBucket);
     // props.history.push('/user');
   }
-
+  if(auth.uid) return <Redirect to='/' />
   return (
     <>
       <h2 style={{textAlign: 'center'}}>Log In</h2>
@@ -84,7 +85,8 @@ const Login = ({signIn, authError}) => {
 
 const mapStateToProps = (state) => {
   return {
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    auth: state.firebase.auth
   }
 }
 

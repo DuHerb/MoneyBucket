@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 
 const useStyles = makeStyles({
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
 })
 
 
-const Signup = () => {
+const Signup = ({auth}) => {
   const classes = useStyles();
   const [creds, setCreds] = useState();
 
@@ -57,7 +58,7 @@ const Signup = () => {
     // console.log(props.createBucket);
     // props.history.push('/user');
   }
-  
+    if(auth.uid) return <Redirect to='/' />
     return (
       <>
         <h2 style={{textAlign: 'center'}}>Sign Up</h2>
@@ -105,4 +106,17 @@ const Signup = () => {
     )
   }
 
-export default Signup
+  const mapStateToProps = (state) => {
+    return {
+      authError: state.auth.authError,
+      auth: state.firebase.auth
+    }
+  }
+  
+  // const mapDispatchToProps = (dispatch) => {
+  //   return {
+  //     signIn: (creds) => dispatch(signIn(creds))
+  //   }
+  // }
+  
+  export default connect(mapStateToProps)(Signup)

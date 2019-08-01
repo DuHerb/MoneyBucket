@@ -8,14 +8,16 @@ import {firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'
 import { reorderBuckets, reorderArray } from '../../store/actions/bucketActions'
 import { reduxFirestore,getFirestore } from 'redux-firestore';
+import { Redirect } from 'react-router-dom'
 
 
 const User = (state) => {
   // const counter = state.buckets.length()
   // console.log("user state.buckets ", state)
   // const[localState, setlocalState] = useState()
+  if(!state.auth.uid) return <Redirect to='/' />
 
-  useEffect(() => {
+  // useEffect(() => {
     // console.log('useEffect', state.buckets)
     // const localState = state.buckets;
     // console.log('localstate:', localState)
@@ -31,10 +33,9 @@ const User = (state) => {
     //   })
     //   console.log('localAray', localArray);
     //   console.log('localState', localState);
-      
     // });
     // setlocalState(localArray);
-  })
+  // })
 
 
   function onDragEnd(result) {
@@ -90,7 +91,7 @@ const mapStateToProps = (state) => {
     // buckets: state.bucket.buckets
     // buckets: state.bucket.initState.buckets
     // firestore data
-    redux: state,
+    auth: state.firebase.auth,
     buckets: state.firestore.ordered.buckets
   }
 }
