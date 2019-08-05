@@ -4,6 +4,10 @@ An envelope style savings PWA.  Visualize how much of your funds are allocated t
 #### Author: Dustin Herboldshimer
 #### Version: 0.0.1 July 29, 2019
 
+#### Live Demo @ <a href="https://duherb.github.io/MoneyBucket">MoneyBucket on gh-pages</a>
+
+##### Bug Alert: currently, after launching demo, signin page only shows up after <em>clicking the the '$' avatar in the top left.</em>. You will be redirected to the landing page where you can sign up/log in.
+
 
 #### Premise:
 Money buckets keeps track of desposits via 'buckets', seperate units that represent a savings goal... a bill, multiple bills, a pair of shoes, vacation fund...any dollar amount labeled for a desired use.
@@ -13,10 +17,9 @@ Imagine that these buckets are stacked, one on top of the next.  A deposit is 'p
 Any number of buckets can be created, re-ordered, emptied out or poured into other buckets.  Once a bucket is filled up, it no longer accepts funds and passes everything down to the next bucket until it has been emptied or removed from the stack.
 
 #### Stack:
-- React
-- Apollo with GraphQL
+- React/Redux
 - Google Firestore
-- UI - Material UI
+- Material UI
 
 #### Design Documents
 <div align='center'>
