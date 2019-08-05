@@ -40,8 +40,6 @@ function getDropStyle(style, snapshot) {
   };
 }
 
-
-
 const Bucket = ({bucket, index, toggleIsLocked}) => {
   const classes = useStyles();
   const onToggleIsLocked = () => {
@@ -58,12 +56,23 @@ const Bucket = ({bucket, index, toggleIsLocked}) => {
           style={getDropStyle(provided.draggableProps.style, snapshot)}
         >
           <div className={classes.bucketInfo}>
-            <p>{bucket.id}</p>
-            <p>{bucket.name}</p>
-            <p>{bucket.order}</p>
+            <p>Name: {bucket.name}</p>
+            <p>UID: {bucket.id}</p>
+            <p>Index: {bucket.order}</p>
             {bucket.isLocked === false ? <LockOpen className={classes.icon} onClick={onToggleIsLocked} /> : <Lock className={classes.icon} onClick={onToggleIsLocked} />}
           </div>
-          <p className={classes.bucketValue}>{bucket.currentValue}</p>
+          {(bucket.targetValue === bucket.currentValue) ?
+            <h2 style={{fontWeight: 'bold', color: 'green'}}>Full</h2>
+              :
+            <div>
+              <p>Target Value: ${bucket.targetValue}</p>
+              <p className={classes.bucketValue}>Current Value: ${bucket.currentValue}</p>
+              {bucket.valueChange && <p>Value Change: ${bucket.valueChange}</p>}
+              {bucket.staticHoldValue && <p>Hold Value($): {bucket.staticHoldValue}</p>}
+              {bucket.percentHoldValue && <p>Hold Value(%): {bucket.percentHoldValue}</p>}
+              {bucket.minHoldValue && <p>Min Value($): {bucket.minHoldValue}</p>}
+            </div>
+          }
           {/* <BucketFillBar /> */}
       </div>
       )}

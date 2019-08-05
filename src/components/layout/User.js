@@ -37,7 +37,7 @@ const User = (state) => {
             <div ref={provided.innerRef} {...provided.droppableProps} >
               <MainContainer buckets={state.buckets}/>
               {provided.placeholder}
-              <MoneyBucket />
+              <MoneyBucket moneybucket={state.moneybucket}/>
             </div>
           )}
         </Droppable>
@@ -53,17 +53,19 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('from user', state);
+  console.log('from user', state);
   
   return {
     auth: state.firebase.auth,
-    buckets: state.firestore.ordered.buckets
+    buckets: state.firestore.ordered.buckets,
+    moneybucket: state.firestore.ordered.moneybuckets
   }
 }
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect( props => [
-    { collection: 'buckets', where: ['userId', '==', props.auth.uid], orderBy: ['order']}
+    { collection: 'buckets', where: ['userId', '==', props.auth.uid], orderBy: ['order']},
+    { collection: 'moneybuckets', where: ['userId', '==', props.auth.uid]}
   ])
 )(User)
