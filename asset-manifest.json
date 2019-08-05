@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/MoneyBucket/static/css/main.34de6062.chunk.css",
+    "main.js": "/MoneyBucket/static/js/main.41d3289d.chunk.js",
+    "main.js.map": "/MoneyBucket/static/js/main.41d3289d.chunk.js.map",
+    "runtime~main.js": "/MoneyBucket/static/js/runtime~main.f1332632.js",
+    "runtime~main.js.map": "/MoneyBucket/static/js/runtime~main.f1332632.js.map",
+    "static/js/2.2ab0fa2b.chunk.js": "/MoneyBucket/static/js/2.2ab0fa2b.chunk.js",
+    "static/js/2.2ab0fa2b.chunk.js.map": "/MoneyBucket/static/js/2.2ab0fa2b.chunk.js.map",
+    "index.html": "/MoneyBucket/index.html",
+    "precache-manifest.28d60b8f3d4c009396f032a1bea8047f.js": "/MoneyBucket/precache-manifest.28d60b8f3d4c009396f032a1bea8047f.js",
+    "service-worker.js": "/MoneyBucket/service-worker.js",
+    "static/css/main.34de6062.chunk.css.map": "/MoneyBucket/static/css/main.34de6062.chunk.css.map"
+  }
+}
