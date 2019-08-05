@@ -2,7 +2,7 @@
   "name": "money-bucket",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DuHerb.github.io/MoneyBucket",
+  "homepage": "https://duherb.github.io/MoneyBucket",
   "dependencies": {
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
